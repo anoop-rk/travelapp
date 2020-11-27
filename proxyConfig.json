@@ -1,0 +1,8 @@
+{
+    "/api/*": {
+        "target": "https://anypoint.mulesoft.com/mocking",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    }
+}
