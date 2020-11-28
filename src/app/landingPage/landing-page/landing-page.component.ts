@@ -181,7 +181,7 @@ export class LandingPageComponent implements OnInit {
       error => console.log('oops', error)
   );
  
-  this.landingPageService.fetchWeatherDetails(destinationCode, travelDate).subscribe(
+  this.landingPageService.fetchWeatherDetails(travelDestination, travelDate).subscribe(
     data => {
       this.weatherDetails = data;
       this.weatherDetails['visibility'] = (this.weatherDetails['visibility']/1000).toFixed(1);
