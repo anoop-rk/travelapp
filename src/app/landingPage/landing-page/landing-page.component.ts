@@ -6,7 +6,7 @@ import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
-
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-landing-page',
@@ -33,7 +33,7 @@ export class LandingPageComponent implements OnInit {
   public nearByPlaces: any[];
   public noTrainData = true;
 
-  constructor(landingService: LandingService, config: NgbTypeaheadConfig) { 
+  constructor(landingService: LandingService, config: NgbTypeaheadConfig, private toastr: ToastrService) { 
     this.landingPageService = landingService;
     this.isCollapsed = false;
     config.showHint = true;
@@ -154,6 +154,7 @@ export class LandingPageComponent implements OnInit {
     }
    
     if (this.validationMessage !== '') {
+      this.toastr.error(this.validationMessage);
       return;
     }
 
