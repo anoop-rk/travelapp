@@ -1,7 +1,7 @@
 <div class="container mx-5 my-5 col-xl-11">
   <h1 class="h3 mb-0 text-gray-800 my-2">Search Trains</h1>
   <div class="row">
-    <form class="d-md-block form col-xl-11">
+    <form class="d-md-block form col-xl-12">
       <div class="input-group">
         <!-- Search form -->
         <input class="form-control mr-2" type="text" placeholder="Search by origin" aria-label="Search"
@@ -23,22 +23,35 @@
   </div>
   <div class="row">
     <!-- CSS -->
-    <div class="col-4 mt-5">
+    <div class="col-5 mt-5">
       <div class="card card-inverse" style="background-color: #333; border-color: #333;">
         <div class="card-block">
           <div class="row">
-            <div class="col-md-8 ml-2 mb-2">
-              <h2 class="card-title text-white">Travel Date Wheather Forecast</h2>
+            <div class="col-md-8 ml-4 mb-5 mt-5">
+              <h2 class="card-title text-white">Travel Date Weather Forecast</h2>
               <p class="card-text" style="color: rgba(255,255,240,.65);"><strong>Temperature(in celcius) </strong> 30
                 deg </p>
               <p class="card-text" style="color: rgba(255,255,240,.65);"><strong>Humidity(%) </strong> 90% </p>
               <p class="card-text" style="color: rgba(255,255,240,.65);"><strong>Sky </strong> 30% </p>
               <p class="card-text" style="color: rgba(255,255,240,.65);"><strong>Wind Speed(in Kms/hr) </strong> 45 </p>
             </div>
+            <div class="col-md-4 col-sm-4 text-center">
+              <fa-icon class="mr-1 bg-white" [icon]='["fas", "fa-cloud"]'></fa-icon>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <div class="col-7 mt-5">
+      <div class="card">
+        <div class="card-header">
+          <fa-icon class="mr-1" [icon]='["fas", "chart-bar"]'></fa-icon>Covid Update
+        </div>
+          <div class="card-body">
+            <canvas id="canvas"></canvas>
+          </div>
+      </div>
+  </div>
   </div>
 
   <form>
