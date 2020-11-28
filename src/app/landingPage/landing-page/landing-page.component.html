@@ -4,20 +4,27 @@
     <form class="d-md-block form col-xl-12">
       <div class="input-group">
         <!-- Search form -->
-        <input class="form-control mr-2" type="text" placeholder="Search by origin" aria-label="Search"
+        <div class="col-xl-4">
+          <h6 class="h6 mb-0 text-secondary my-2 col-xl-6">Source</h6>
+          <input class="form-control mr-2 mt-2" type="text" placeholder="Source Name" aria-label="Search"
+            aria-describedby="basic-addon2" />
+            <input class="form-control mr-2 mt-2" type="text" placeholder="Source postal code" aria-label="Search"
           aria-describedby="basic-addon2" />
-        <input class="form-control mr-2" type="text" placeholder="Search by destination" aria-label="Search"
+        </div>
+        <div class="col-xl-4">
+        <h6 class="h6 mb-0 text-secondary my-2 col-xl-6">Destination</h6>
+        <input class="form-control mr-2 mt-2" type="text" placeholder="Destination Name" aria-label="Search"
           aria-describedby="basic-addon2" />
-        <input class="form-control mr-2" type="text" placeholder="Search by orgin postal code" aria-label="Search"
+        <input class="form-control mt-2" type="text" placeholder="Destination postal code" aria-label="Search"
           aria-describedby="basic-addon2" />
-        <input class="form-control" type="text" placeholder="Search by destination postal code" aria-label="Search"
-          aria-describedby="basic-addon2" />
+        </div>
+        <div class="col-xl-3">
+        <h6 class="h6 mb-0 text-secondary my-2 col-xl-6">Date</h6>
         <div class="input-group md-form input-with-post-icon datepicker mt-2">
           <input placeholder="Select date" type="date" id="example" class="form-control">
         </div>
-        <div class="input-group">
-          <button class="btn btn-primary mt-2" type="button">Search</button>
-        </div>
+        <button class="btn btn-primary mt-2 float-right" type="button">Search</button>
+      </div>
       </div>
     </form>
   </div>
@@ -56,25 +63,25 @@
 
   <form>
     <!-- <div class="form-group form-inline">Full text search: <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="countryService.searchTerm" /><span class="ml-3" *ngIf="countryService.loading$ | async">Loading...</span></div> -->
-    <table class="table table-striped mt-5">
-      <thead>
-        <tr>
-          <th>Train No.</th>
-          <th>Origin</th>
-          <th>Destination</th>
-          <th>Estimatated Arrival Time</th>
-          <th>Estimated Departure Time</th>
-          <th>Total duration</th>
+    <table class="table shadow rounded mt-5">
+      <thead class="bg-secondary">
+        <tr class="d-flex text-center text-white">
+          <th class="col-1">Train No.</th>
+          <th class="col-3">Origin</th>
+          <th class="col-3">Destination</th>
+          <th class="col-2">Estimated Arrival Time</th>
+          <th class="col-2">Estimated Departure Time</th>
+          <th class="col-1"> Total Duration</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of trainData">
-          <td>{{ data.trainNumber }}</td>
-          <td>{{ data.origin }}</td>
-          <td>{{ data.destination }}</td>
-          <td>{{ data.eta }}</td>
-          <td>{{ data.etd }}</td>
-          <td>{{ data.duration }}</td>
+        <tr class="d-flex text-center" *ngFor="let data of trainData">
+          <th class="col-1" scope="row">{{ data.trainNumber }}</th>
+          <td class="col-3">{{ data.origin }}</td>
+          <td class="col-3">{{ data.destination }}</td>
+          <td class="col-2">{{ data.eta }}</td>
+          <td class="col-2">{{ data.etd }}</td>
+          <td class="col-1">{{ data.duration }}</td>
         </tr>
       </tbody>
     </table>
