@@ -35,10 +35,18 @@
       </div>
     </form>
   </div>
-  <div class="row">
-    <!-- CSS -->
-    <div class="col-5 mt-5">
-      <div class="card card-inverse" style="background-color: #333; border-color: #333;">
+  <ul class="nav nav-tabs mt-5 col-xl-12" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Travel</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Nearby</a>
+    </li>
+  </ul>
+  <div class="tab-content col-12" id="myTabContent">
+    <div class="tab-pane fade show active col-12" id="home" role="tabpanel" aria-labelledby="home-tab">
+      <div class="row">
+      <div class="card card-inverse col-5 mt-5 mr-5" style="background-color: #333; border-color: #333;">
         <div class="card-block">
           <div class="row">
             <div class="col-md-8 ml-4 mb-5 mt-5">
@@ -54,9 +62,8 @@
             </div>
           </div>
         </div>
-      </div>
     </div>
-    <div class="col-7 mt-5">
+    <div class="col-6 mt-5">
       <div class="card">
         <div class="card-header">
           <fa-icon class="mr-1" [icon]='["fas", "chart-bar"]'></fa-icon>Covid Update
@@ -70,225 +77,139 @@
             [legend]="barChartLegend"
             [chartType]="barChartType">
           </canvas>
-         <!--   <canvas id="canvas"></canvas> -->
           </div>
-      </div>
-  </div>
-  </div>
-
-  <form>
-    <!-- <div class="form-group form-inline">Full text search: <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="countryService.searchTerm" /><span class="ml-3" *ngIf="countryService.loading$ | async">Loading...</span></div> -->
-    <table class="table shadow rounded mt-5">
-      <thead class="bg-secondary">
-        <tr class="d-flex text-center text-white">
-          <th class="col-1">Train No.</th>
-          <th class="col-3">Origin</th>
-          <th class="col-3">Destination</th>
-          <th class="col-2">Estimated Arrival Time</th>
-          <th class="col-2">Estimated Departure Time</th>
-          <th class="col-1"> Total Duration</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="d-flex text-center" *ngFor="let data of trainData">
-          <th class="col-1" scope="row">{{ data.trainNumber }}</th>
-          <td class="col-3">{{ data.origin }}</td>
-          <td class="col-3">{{ data.destination }}</td>
-          <td class="col-2">{{ data.eta }}</td>
-          <td class="col-2">{{ data.etd }}</td>
-          <td class="col-1">{{ data.duration }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <!-- <div class="d-flex justify-content-between p-2">
-      <ngb-pagination [collectionSize]="total$ | async" [(page)]="countryService.page" [pageSize]="countryService.pageSize"></ngb-pagination
-      ><select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="countryService.pageSize">
-          <option [ngValue]="2">2 items per page</option>
-          <option [ngValue]="4">4 items per page</option>
-          <option [ngValue]="6">6 items per page</option>
-      </select>
-  </div> -->
-  </form>
-</div>
-
-<!-- <div class="trainBody"> 
-  <h3 style="color: black;margin-left: 457px;margin-top: 10px;">SEARCH TRAINS</h3>
-  
-  <table style="margin-top: 20px;">
-    <tr> 
-      <td style="width:30%">
-        <span style="margin-left: 0px; display: inline;">Origin: </span> 
-        <input #origin id="typeahead-format" type="text" class="form-control" style="display: inline;width: 13pc;height: 25px;margin-left: 2.6pc;"
-        [(ngModel)]="originModel" [ngbTypeahead]="locationSearch" [resultFormatter]="formatter" [inputFormatter]="inputFormatter" placeholder="Enter origin location"/>
-      </td>
-      <td style="width:35%">
-        <span style="margin-left: 0px;">Destination: </span>
-        <input #destination id="typeahead-format1" type="text" class="form-control" style="display: inline;width: 13pc;height: 25px;"
-        [(ngModel)]="destinationModel" [ngbTypeahead]="locationSearch" [resultFormatter]="formatter" [inputFormatter]="inputFormatter" placeholder="Enter destination location"/>        
-      </td>
-      <td style="width:25%">
-        <span style="margin-left: 0px;">Travel Date</span> 
-        <input #travelDate type='date' title="Enter the travel date"/>
-      </td> 
-      <td>
-        <button style="margin-left: 0px;font-size: 18px;background: darkgray;" [disabled]="loading" (click)="fetchTravelData(origin,destination,travelDate)">Search</button>
-      </td>   
-    </tr>
-    <tr>
-      <td style="width:30%">
-        <span style="margin-left: 10.5pc; display: inline;">----- or -----</span> 
-      </td>
-      <td style="width:35%">
-        <span style="margin-left: 10.5pc; display: inline;">----- or -----</span> 
-      </td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td style="width:30%">
-        <span style="margin-left: 0px; display: inline;">Post Code: </span> 
-        <input #originPostCode id="typeahead-format" type="text" class="form-control" style="display: inline;width: 13pc;height: 25px;"
-        [(ngModel)]="originPostCodeModel" [ngbTypeahead]="postalCodeSearch" [resultFormatter]="postCodeformatter" [inputFormatter]="inputPostCodeFormatter" placeholder="Enter origin postal code"/>
-      </td>
-      <td style="width:35%">
-        <span style="margin-left: 0px; display: inline;">Post Code: </span> 
-        <input #destinationPostCode id="typeahead-format" type="text" class="form-control" style="display: inline;width: 13pc;height: 25px;margin-left:1pc"
-        [(ngModel)]="destinationPostCodeModel" [ngbTypeahead]="postalCodeSearch" [resultFormatter]="postCodeformatter" [inputFormatter]="inputPostCodeFormatter" placeholder="Enter dest postal code"/>
-      </td>
-      <td></td>
-      <td></td>
-    </tr>  
-  </table>
-  <hr style="color: black;">
-  <h4 *ngIf="!showWeatherAndCovidData" style="color:#211514;margin-left: 400px;">Once trains are searched, data will be displayed.....</h4>
-<div *ngIf="showWeatherAndCovidData">
- <p style="display: inline;">
-  <button type="button" class="btn btn-outline-primary" (click)="showWeather()" [attr.aria-expanded]="!isCollapsed"
-    aria-controls="collapseExample" style="width: 290px;margin-left: 0px;padding: 0px;">
-    Travel Date {{weatherDetails.cityName}} Weather forecast
-  </button>
-</p>
-<h6 style="color: #cc1616;margin-left: 357px;display:inline">London Active Covid cases: 5</h6>
-<div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
-  <div class="card">
-    <div class="card-body" style="background-color: #efeff5">
-      <div>
-        <img
-          style="width: 20px;right: 0;height: 16px;margin-left: 10px;display: inline;"
-          src="../assets/images/temperature.png"
-         />
-        <h6 style="color: black;margin-left: 10px;margin-top: 10px;display: inline;">Temperature(in celcius): {{weatherDetails.temperature}}</h6>
-      
-        <img
-        style="width: 20px;right: 0;height: 16px;margin-left: 12.5pc;display: inline;"
-        src="../assets/images/humidity.png"
-       />
-       <h6 style="color: black;margin-left: 10px;margin-top: 10px;display: inline;">Humidity(%): {{weatherDetails.humidity}}</h6>
-     
-       <h6 style="color: black;margin-left: 16pc;margin-top: 10px; display: inline;">Sky: </h6>
-        <img
-        style="width: 20px;right: 0;height: 16px;margin-left: 1pc;display: inline;"
-        src="../assets/images/sunny.png"
-       />
-      </div>
-      
-      <div>
-        <img
-          style="width: 20px;right: 0;height: 16px;margin-left: 10px; display: inline;"
-          src="../assets/images/windy.png"
-        />
-        <h6 style="color: black;margin-left: 10px;margin-top: 10px; display: inline;">Wind Speed(in Kms/hr): {{weatherDetails.windSpeed}}</h6>
-     
-        <img
-          style="width: 20px;right: 0;height: 16px;margin-left: 15.3pc; display: inline;"
-          src="../assets/images/visibility.png"
-        />
-        <h6 style="color: black;margin-left: 10px;margin-top: 10px;display: inline;">Visibility(in Kms): {{weatherDetails.visibility}}</h6>
-   
-      </div>
-       
-      <div>
-           </div>   
     </div>
   </div>
-</div>
- <!--
-  <h6 style="color: #cc1616;margin-left: 400px;display:inline">London Active Covid cases: 5</h6>
- -->
-
-<!-- <h6 style="color: black">Temperature(in Celcius): {{weatherDetails.temperature}}</h6>
-  <h6 style="color: black">Humidity(in Celcius): {{weatherDetails.humidity}}</h6>
-  <h6 style="color: black">Sky: {{weatherDetails.weather}}</h6>
-  <h6 style="color: black">Wind Speed: {{weatherDetails.windSpeed}}</h6>
-  <h6 style="color: black">Visibility: {{weatherDetails.visibility}}</h6>
- 
-
-
-
-  <hr style="color: black;margin-top: 0px;margin-bottom: 0px;"> 
-  <input type="button" (click)=subscribeTrain() value={{subscribeTrainText}} 
-             style="margin-left: 991px;font-size: 18px;background: darkgray;display: inline;margin-top: 5px;margin-bottom: 5px;" [disabled] = "toggle">
-      
-     <table style='color: black;' id="trainTable"> 
-        <thead>
-            <tr>
-              <th>Select</th>
-              <th>Train No.</th>
-              <th>Origin</th>
-              <th>Destination</th>
-              <th>Estimatated Arrival Time</th>
-              <th>Estimated Departure Time</th>
-              <th>Total duration</th>
-            </tr>
+  </div>
+    <form>
+      <table class="table shadow rounded mt-5">
+        <thead class="bg-secondary">
+          <tr class="d-flex text-center text-white">
+            <th class="col-1">Train No.</th>
+            <th class="col-3">Origin</th>
+            <th class="col-3">Destination</th>
+            <th class="col-2">Estimated Arrival Time</th>
+            <th class="col-2">Estimated Departure Time</th>
+            <th class="col-1"> Total Duration</th>
+          </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let data of trainData">
-            <td>
-              <input type="checkbox" [(ngModel)] = "data.selected" >
-            </td>
-            <td>{{ data.trainNumber }}</td>
-            <td>{{ data.origin }}</td>
-            <td>{{ data.destination }}</td>
-            <td>{{ data.eta }}</td>
-            <td>{{ data.etd }}</td>
-            <td>{{ data.duration }}</td>
+          <tr class="d-flex text-center" *ngFor="let data of trainData">
+            <th class="col-1" scope="row">{{ data.trainNumber }}</th>
+            <td class="col-3">{{ data.origin }}</td>
+            <td class="col-3">{{ data.destination }}</td>
+            <td class="col-2">{{ data.eta }}</td>
+            <td class="col-2">{{ data.etd }}</td>
+            <td class="col-1">{{ data.duration }}</td>
           </tr>
         </tbody>
       </table>
-      
-</div>
+      <!-- <div class="d-flex justify-content-between p-2">
+        <ngb-pagination [collectionSize]="total$ | async" [(page)]="countryService.page" [pageSize]="countryService.pageSize"></ngb-pagination
+        ><select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="countryService.pageSize">
+            <option [ngValue]="2">2 items per page</option>
+            <option [ngValue]="4">4 items per page</option>
+            <option [ngValue]="6">6 items per page</option>
+        </select>
+    </div> -->
+    </form>
+    </div>
+    <div class="tab-pane fade mt-5" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 
-
-</div>
-
-<div class="covidData">
-  <h1 style="margin-left: 63px;color: #3f486b;height: 12px;margin-top: 6px;font-weight: 100;font-size: 25px;">COVID UPDATE</h1>
-  <div style="align-content: center;margin-top: 25px;overflow-y: auto;bottom: 0%;height: 700px;"> 
-    <style>
-      .tableFixHead {
-        overflow-y: auto;
-        height: 700px;
-      }
-      .tableFixHead thead th {
-        position: sticky;
-        top: 0;
-      }
-      </style>
-      <div class="tableFixHead">
-      <table id="covidTable"> 
-      <thead>
-          <tr>
-            <th>Location</th>
-            <th>Active Cases</th>
-          </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let data of covidData">
-          <td>{{ data.location }}</td>
-          <td>{{ data.activeCases }}</td>
-        </tr>
-      </tbody>
-    </table>
+      <div class="row">
+        <div class="col-3">
+          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link active show" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Restaurants</a>
+            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Supermarkets</a>
+            <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Tourism</a>
+            <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Cinemas</a>
+          </div>
+        </div>
+        <div class="col-9">
+          <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade active show" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+              <form>
+                <table class="table shadow rounded">
+                  <thead class="bg-secondary">
+                    <tr class="d-flex text-center text-white">
+                      <th class="col-3">Name</th>
+                      <th class="col-6">Address</th>
+                      <th class="col-3">Distance</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="d-flex text-center" *ngFor="let data of trainData">
+                      <th class="col-3" scope="row">{{ data.trainNumber }}</th>
+                      <td class="col-6">{{ data.origin }}</td>
+                      <td class="col-3">{{ data.destination }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </form>
+            </div>
+            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+              <form>
+                <table class="table shadow rounded">
+                  <thead class="bg-secondary">
+                    <tr class="d-flex text-center text-white">
+                      <th class="col-3">Name</th>
+                      <th class="col-6">Address</th>
+                      <th class="col-3">Distance</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="d-flex text-center" *ngFor="let data of trainData">
+                      <th class="col-3" scope="row">{{ data.trainNumber }}</th>
+                      <td class="col-6">{{ data.origin }}</td>
+                      <td class="col-3">{{ data.destination }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </form>
+            </div>
+            <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+              <form>
+                <table class="table shadow rounded">
+                  <thead class="bg-secondary">
+                    <tr class="d-flex text-center text-white">
+                      <th class="col-3">Name</th>
+                      <th class="col-6">Address</th>
+                      <th class="col-3">Distance</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="d-flex text-center" *ngFor="let data of trainData">
+                      <th class="col-3" scope="row">{{ data.trainNumber }}</th>
+                      <td class="col-6">{{ data.origin }}</td>
+                      <td class="col-3">{{ data.destination }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </form>
+            </div>
+            <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+              <form>
+                <table class="table shadow rounded">
+                  <thead class="bg-secondary">
+                    <tr class="d-flex text-center text-white">
+                      <th class="col-3">Name</th>
+                      <th class="col-6">Address</th>
+                      <th class="col-3">Distance</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="d-flex text-center" *ngFor="let data of trainData">
+                      <th class="col-3" scope="row">{{ data.trainNumber }}</th>
+                      <td class="col-6">{{ data.origin }}</td>
+                      <td class="col-3">{{ data.destination }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div> -->
+</div>
