@@ -30,8 +30,10 @@ export class LandingPageComponent implements OnInit {
   public destinationPostCodeModel: any;
   public validationMessage: string;
   public postCodes: string[] = [];
-  public nearByPlaces: any[];
   public noTrainData = true;
+  public restaurants: any[] = [];
+  public supermarkets: any[] = [];
+  public tourism: any[] = [];
 
   constructor(landingService: LandingService, config: NgbTypeaheadConfig, private toastr: ToastrService) { 
     this.landingPageService = landingService;
@@ -83,19 +85,7 @@ export class LandingPageComponent implements OnInit {
     
   
     public barChartData: ChartDataSets[] = [];
-    /*public barChartOptions: ChartOptions = {
-      responsive: true,
-    };
-    public barChartLabels: Label[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
-    public barChartType: ChartType = 'bar';
-    public barChartLegend = true;
-    public barChartPlugins = [];
     
-  
-    public barChartData: ChartDataSets[] = [
-      { data: [65, 59, 80, 81, 56, 55, 40], label: 'Covid Cases' }
-    ];*/
-
     ngOnInit() {
     const self = this;
       this.landingPageService.getLocations().subscribe(data => {
@@ -134,7 +124,7 @@ export class LandingPageComponent implements OnInit {
     destinationPostCode: any){
     this.validationMessage = '';
     if((origin == '' || origin == null) && (originPostCode == '' || originPostCode == null)){
-      this.validationMessage = this.validationMessage + 'Origin cannot be empty.'
+      this.validationMessage = this.validationMessage + 'Source cannot be empty.'
     } 
 
     if((destination == '' || destination == null) && (destinationPostCode == '' || destinationPostCode == null)){
@@ -202,7 +192,9 @@ export class LandingPageComponent implements OnInit {
 
   this.landingPageService.fetchAttractionSpots(travelDestination).subscribe(
     data => {
-      this.nearByPlaces = data;
+      this.restaurants = data['restaurant'];
+      this.supermarkets = data['supermarket'];
+      this.tourism = data['tourism'];
     },
     error => console.log('Error fetching weather details : ', error)
   );
