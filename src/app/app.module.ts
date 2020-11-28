@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { IconsModule } from './icons/icons.module';
 import { ChartsModule } from 'ng2-charts';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ChartsModule } from 'ng2-charts';
     FormsModule,
     HttpClientModule,
     IconsModule,
-    ChartsModule
+    ChartsModule,
+    NgbModule
   ],
   bootstrap: [AppComponent]
 })
