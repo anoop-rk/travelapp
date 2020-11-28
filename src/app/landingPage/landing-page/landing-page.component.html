@@ -6,24 +6,26 @@
         <!-- Search form -->
         <div class="col-xl-4">
           <h6 class="h6 mb-0 text-secondary my-2 col-xl-6">Source</h6>
-          <input class="form-control mr-2 mt-2" type="text" placeholder="Source Name" aria-label="Search"
-            aria-describedby="basic-addon2" />
-            <input class="form-control mr-2 mt-2" type="text" placeholder="Source postal code" aria-label="Search"
+          <input #origin class="form-control mr-2 mt-2" type="text" placeholder="Source Name" aria-label="Search"
+            aria-describedby="basic-addon2" autocomplete="true"/>
+         
+            <input #originPostCode class="form-control mr-2 mt-2" type="text" placeholder="Source postal code" aria-label="Search"
           aria-describedby="basic-addon2" />
         </div>
         <div class="col-xl-4">
         <h6 class="h6 mb-0 text-secondary my-2 col-xl-6">Destination</h6>
-        <input class="form-control mr-2 mt-2" type="text" placeholder="Destination Name" aria-label="Search"
+        <input #destination class="form-control mr-2 mt-2" type="text" placeholder="Destination Name" aria-label="Search"
           aria-describedby="basic-addon2" />
-        <input class="form-control mt-2" type="text" placeholder="Destination postal code" aria-label="Search"
+        <input  #destinationPostCode class="form-control mt-2" type="text" placeholder="Destination postal code" aria-label="Search"
           aria-describedby="basic-addon2" />
         </div>
         <div class="col-xl-3">
         <h6 class="h6 mb-0 text-secondary my-2 col-xl-6">Date</h6>
         <div class="input-group md-form input-with-post-icon datepicker mt-2">
-          <input placeholder="Select date" type="date" id="example" class="form-control">
+          <input #travelDate placeholder="Select date" type="date" id="example" class="form-control">
         </div>
-        <button class="btn btn-primary mt-2 float-right" type="button">Search</button>
+        <button class="btn btn-primary mt-2 float-right" type="button"
+        (click)="fetchTravelData(origin.value,destination.value,travelDate.value, originPostCode.value, destinationPostCode.value)">Search</button>
       </div>
       </div>
     </form>
