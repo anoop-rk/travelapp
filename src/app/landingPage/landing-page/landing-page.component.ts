@@ -4,6 +4,9 @@ import {Observable} from 'rxjs';
 import {NgbTypeaheadConfig} from '@ng-bootstrap/ng-bootstrap';
 import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
+import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
+import { Label } from 'ng2-charts';
+
 
 @Component({
   selector: 'app-landing-page',
@@ -69,7 +72,31 @@ export class LandingPageComponent implements OnInit {
     postCodeformatter = (value: any) => value
     inputPostCodeFormatter = (value: any) => value
 
-  ngOnInit() {
+    
+    public barChartOptions: ChartOptions = {
+      responsive: true,
+    };
+    public barChartLabels: Label[] = [];
+    public barChartType: ChartType = 'bar';
+    public barChartLegend = true;
+    public barChartPlugins = [];
+    
+  
+    public barChartData: ChartDataSets[] = [];
+    /*public barChartOptions: ChartOptions = {
+      responsive: true,
+    };
+    public barChartLabels: Label[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+    public barChartType: ChartType = 'bar';
+    public barChartLegend = true;
+    public barChartPlugins = [];
+    
+  
+    public barChartData: ChartDataSets[] = [
+      { data: [65, 59, 80, 81, 56, 55, 40], label: 'Covid Cases' }
+    ];*/
+
+    ngOnInit() {
     const self = this;
       this.landingPageService.getLocations().subscribe(data => {
            this.locations = data,
@@ -82,8 +109,23 @@ export class LandingPageComponent implements OnInit {
         
         error => console.log('Exception while fetching locations: ', error)
       );
+
+      this.barChartLabels = [];
+      this.barChartData = [];
       this.landingPageService.fetchCovidData().subscribe(data => {
          this.covidData = data;
+         let areaNames =  [];
+         let cases = [];
+
+         data.forEach(covid => {
+          areaNames.push(covid.areaName);
+          cases.push(covid.cumulative);
+         });
+        
+         this.barChartLabels = areaNames;
+         this.barChartData = [
+          { data: cases, label: 'Total Covid Cases' }
+        ]
       });
       this.isCollapsed = false;
   }

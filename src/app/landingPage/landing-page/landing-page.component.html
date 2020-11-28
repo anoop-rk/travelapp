@@ -57,7 +57,15 @@
           <fa-icon class="mr-1" [icon]='["fas", "chart-bar"]'></fa-icon>Covid Update
         </div>
           <div class="card-body">
-            <canvas id="canvas"></canvas>
+            <canvas baseChart 
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [plugins]="barChartPlugins"
+            [legend]="barChartLegend"
+            [chartType]="barChartType">
+          </canvas>
+         <!--   <canvas id="canvas"></canvas> -->
           </div>
       </div>
   </div>
