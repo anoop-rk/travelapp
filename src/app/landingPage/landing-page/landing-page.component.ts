@@ -22,7 +22,7 @@ export class LandingPageComponent implements OnInit {
   public covidData = []
   public showWeatherAndCovidData = false;
   public subscribeTrainText = "Subscribe Trains";
-  public weatherDetails = [];
+  public weatherDetails:any;
   public isCollapsed = false;
   public originModel: any;
   public destinationModel: any;
@@ -212,12 +212,12 @@ getCodeFromPostalCode(code: string): any{
   this.locations.forEach(element => {
     element.postCodes.forEach(post =>{
       if (code == post){
-        stationCode = element.stationCode;
+        stationCode = element.stationName;
         return; 
       }
     });         
    });
-   return stationCode;
+   return stationCode
 }
 
 getdestinationFromPostalCode(code: string): any{

@@ -15,14 +15,26 @@
             [inputFormatter]="inputFormatter"/>
          
             <input #originPostCode class="form-control mr-2 mt-2" type="text" placeholder="Source postal code" aria-label="Search"
-          aria-describedby="basic-addon2" />
+          aria-describedby="basic-addon2" 
+          [(ngModel)]="originPostCodeModel" 
+          [ngbTypeahead]="postalCodeSearch" 
+          [resultFormatter]="postCodeformatter" 
+          [inputFormatter]="inputPostCodeFormatter"/>
         </div>
         <div class="col-xl-4">
         <h6 class="h6 mb-0 text-secondary my-2 col-xl-6">Destination</h6>
         <input #destination class="form-control mr-2 mt-2" type="text" placeholder="Destination Name" aria-label="Search"
-          aria-describedby="basic-addon2" />
+          aria-describedby="basic-addon2" 
+          [(ngModel)]="destinationModel" 
+          [ngbTypeahead]="locationSearch" 
+          [resultFormatter]="formatter" 
+          [inputFormatter]="inputFormatter"/>
         <input  #destinationPostCode class="form-control mt-2" type="text" placeholder="Destination postal code" aria-label="Search"
-          aria-describedby="basic-addon2" />
+          aria-describedby="basic-addon2" 
+          [(ngModel)]="destinationPostCodeModel" 
+          [ngbTypeahead]="postalCodeSearch" 
+          [resultFormatter]="postCodeformatter"
+          [inputFormatter]="inputPostCodeFormatter"/>
         </div>
         <div class="col-xl-3">
         <h6 class="h6 mb-0 text-secondary my-2 col-xl-6">Date</h6>
@@ -35,7 +47,7 @@
       </div>
     </form>
   </div>
-  <div class="row">
+  <div class="row" *ngIf="showWeatherAndCovidData">
     <!-- CSS -->
     <div class="col-5 mt-5">
       <div class="card card-inverse" style="background-color: #333; border-color: #333;">
@@ -43,11 +55,12 @@
           <div class="row">
             <div class="col-md-8 ml-4 mb-5 mt-5">
               <h2 class="card-title text-white">Travel Date Weather Forecast</h2>
-              <p class="card-text" style="color: rgba(255,255,240,.65);"><strong>Temperature(in celcius) </strong> 30
+              <p class="card-text" style="color: rgba(255,255,240,.65);"><strong>Temperature(in celcius) </strong> {{weatherDetails.temperature}}
                 deg </p>
-              <p class="card-text" style="color: rgba(255,255,240,.65);"><strong>Humidity(%) </strong> 90% </p>
-              <p class="card-text" style="color: rgba(255,255,240,.65);"><strong>Sky </strong> 30% </p>
-              <p class="card-text" style="color: rgba(255,255,240,.65);"><strong>Wind Speed(in Kms/hr) </strong> 45 </p>
+              <p class="card-text" style="color: rgba(255,255,240,.65);"><strong>Humidity(%) </strong> {{weatherDetails.humidity}}% </p>
+              <p class="card-text" style="color: rgba(255,255,240,.65);"><strong>Weather: </strong> {{weatherDetails.weather}} </p>
+              <p class="card-text" style="color: rgba(255,255,240,.65);"><strong>Wind Speed(in Kms/hr) </strong> {{weatherDetails.windSpeed}} </p>
+             
             </div>
             <div class="col-md-4 col-sm-4 text-center">
               <fa-icon class="mr-1 bg-white" [icon]='["fas", "fa-cloud"]'></fa-icon>
@@ -76,7 +89,7 @@
   </div>
   </div>
 
-  <form>
+  <form *ngIf="showWeatherAndCovidData">
     <!-- <div class="form-group form-inline">Full text search: <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="countryService.searchTerm" /><span class="ml-3" *ngIf="countryService.loading$ | async">Loading...</span></div> -->
     <table class="table shadow rounded mt-5">
       <thead class="bg-secondary">
