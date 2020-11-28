@@ -6,8 +6,13 @@
         <!-- Search form -->
         <div class="col-xl-4">
           <h6 class="h6 mb-0 text-secondary my-2 col-xl-6">Source</h6>
+
           <input #origin class="form-control mr-2 mt-2" type="text" placeholder="Source Name" aria-label="Search"
-            aria-describedby="basic-addon2" autocomplete="true"/>
+            aria-describedby="basic-addon2"
+            [(ngModel)]="originModel" 
+            [ngbTypeahead]="locationSearch" 
+            [resultFormatter]="formatter" 
+            [inputFormatter]="inputFormatter"/>
          
             <input #originPostCode class="form-control mr-2 mt-2" type="text" placeholder="Source postal code" aria-label="Search"
           aria-describedby="basic-addon2" />

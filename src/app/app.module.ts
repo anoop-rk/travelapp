@@ -11,6 +11,7 @@ import { FooterComponent } from './footer/footer/footer.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { IconsModule } from './icons/icons.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { IconsModule } from './icons/icons.module';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    IconsModule
+    IconsModule,
+    NgbModule
   ],
   bootstrap: [AppComponent]
 })
