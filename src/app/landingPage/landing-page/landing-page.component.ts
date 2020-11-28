@@ -83,7 +83,7 @@ export class LandingPageComponent implements OnInit {
         error => console.log('Exception while fetching locations: ', error)
       );
       this.landingPageService.fetchCovidData().subscribe(data => {
-         //this.covidData = data;
+         this.covidData = data;
       });
       this.isCollapsed = false;
   }
